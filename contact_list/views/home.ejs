@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>
+            <%= locals.title %>
+        </title>
+    </head>
+    <body>
+        <h1>Rendered from EJS View!</h1>
+        <ul>
+        <% for(let i=1;i<6;i++) { %>
+            <li>
+            <%if(i==1){%>
+                <%= "shivam"%>
+                <% } else if(i==2){%>
+                    <%= "pankaj"%>
+                    <%} else if(i==3) {%> 
+                        <%= "Ritk" %>
+                        <%} else if(i==4){%>
+                            <%= "Draweshwar" %>
+                            <%} else {%>
+                                <%= "This is the last contact"%>
+                                <%}%>
+            </li>
+            <% } %>
+        </ul>
+    </body>
+</html>
