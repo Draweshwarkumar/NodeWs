@@ -1,51 +1,61 @@
-const express= require('express');
+
+const exp = require('constants');
+const express = require('express');
 const path = require('path');
 const { title } = require('process');
 const port = 8000;
 
 const app = express();
 
-
 app.set('view engine','ejs');
-app.set('views',path.join(__dirname,'views'));
+app.set('views', path.join(__dirname,'views'));
+app.use(express.urlencoded());
 
 var contactlist = [
     {
-        name:"shivam",
-        phone:"7654160094"
+        name: "Shivam",
+        phone: "2345467"
     },
     {
-        name: "pankaj",
-        phone: "1234567789"
+        name: "Draweshwar",
+        phone: "455993485"
     },
     {
-        name:"Ritik",
-        phone: "797932120"
-    },
-    {
-        name:"Draweshwar",
-        phone:"9128525710"
+        name: "Rohit sharma",
+        phone: "485084382"
     }
 ]
 
 app.get('/',function(req,res){
-    // console.log(__dirname);
-    // res.send('<h1>it is running! or is it?</h1>');
-    return res.render('contact',{
-        title: "Contact list",
+    return res.render('home',{
+         title:"My Contact list",
         contact_list: contactlist
+        });
+});
+
+app.get('/practice',function(req,res){
+    return res.render('practice',{
+       title: "Let us play with ejs" 
     });
 });
 
-app.post('/new-contact',function(res,req){
-    return res.redirect('/practice');
-})
+app.post('/create-contact', function(req , res){
+    // return res.redirect('/practice');
+    // console.log(req.body);
+    // console.log(req.body.name);
+    // console.log(req.body.phone);
+    // contactlist.push({
+    //     name: req.body.name,
+    //     phone: req.body.phone
+    // });
+    contactlist.push(req.body);
 
+    return res.redirect('back');
+});
 
-
-app.listen(port,function(err){
-    if(err){
-        console.log("Error in running the server",err);
+app.listen(port, function (err) {
+    if (err) {
+        console.log(`Error: ${err}`);
     }
-    console.log('Yup My Express Server is running on port :',port)
+    console.log(`Server is running on port: ${port}`);
 });
