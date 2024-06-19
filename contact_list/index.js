@@ -11,6 +11,20 @@ app.set('view engine','ejs');
 app.set('views', path.join(__dirname,'views'));
 app.use(express.urlencoded());
 
+//middleware1
+app.use(function(req,res,next){
+    req.myname = "Shivam";
+    console.log("Middleware 1 called");
+    next();
+});
+
+//middleware2
+app.use(function(req,res,next){
+    console.log("My name from MW2",req.myname);
+    console.log('Middleware 2 called');
+    next();
+})
+
 var contactlist = [
     {
         name: "Shivam",
@@ -27,6 +41,7 @@ var contactlist = [
 ]
 
 app.get('/',function(req,res){
+    console.log("from get function",req.myname);
     return res.render('home',{
          title:"My Contact list",
         contact_list: contactlist
