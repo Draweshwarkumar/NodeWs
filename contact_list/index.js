@@ -10,20 +10,20 @@ const app = express();
 app.set('view engine','ejs');
 app.set('views', path.join(__dirname,'views'));
 app.use(express.urlencoded());
-
+app.use(express.static('assets'));
 //middleware1
-app.use(function(req,res,next){
-    req.myname = "Shivam";
-    console.log("Middleware 1 called");
-    next();
-});
+// app.use(function(req,res,next){
+//     req.myname = "Shivam";
+//     console.log("Middleware 1 called");
+//     next();
+// });
 
 //middleware2
-app.use(function(req,res,next){
-    console.log("My name from MW2",req.myname);
-    console.log('Middleware 2 called');
-    next();
-})
+// app.use(function(req,res,next){
+//     console.log("My name from MW2",req.myname);
+//     console.log('Middleware 2 called');
+//     next();
+// })
 
 var contactlist = [
     {
@@ -66,6 +66,11 @@ app.post('/create-contact', function(req , res){
     contactlist.push(req.body);
 
     return res.redirect('back');
+});
+
+app.get('/delete-contact/:phone',function(req,res){
+    console.log(req.params);
+    let phone = req.params.params;
 });
 
 app.listen(port, function (err) {
