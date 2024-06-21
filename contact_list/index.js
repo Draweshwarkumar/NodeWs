@@ -41,7 +41,6 @@ var contactlist = [
 ]
 
 app.get('/',function(req,res){
-    console.log("from get function",req.myname);
     return res.render('home',{
          title:"My Contact list",
         contact_list: contactlist
@@ -68,9 +67,14 @@ app.post('/create-contact', function(req , res){
     return res.redirect('back');
 });
 
-app.get('/delete-contact/:phone',function(req,res){
-    console.log(req.params);
-    let phone = req.params.params;
+app.get('/delete-contact/',function(req,res){
+    let phone = req.query.phone;
+
+    let contactIndex = contactlist.findIndex(contact => contact.phone == phone);
+    if(contactIndex != -1){
+        contactlist.splice(contactIndex,1);
+    }
+    res.redirect('back');
 });
 
 app.listen(port, function (err) {
